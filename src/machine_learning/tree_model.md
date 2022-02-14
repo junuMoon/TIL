@@ -1,5 +1,27 @@
 # Random Forest
 
+## Ensemble
+
+단일 모델이 아닌 여러 개의 모델을 생성하여 예측을 결합하여 더 정확한 예측을 도출하는 방법. 랜덤포레스트는 Bagging 기법을 사용.
+
+### Bagging
+
+- Bootstrap AGGregatING: Bootstrap으로 학습한 여러 개의 tree를 생성하여 각 모델의 결과를 집계하여 예측
+- Bootstrap: 전체 데이터에서 무작위 복원 추출로 데이터 샘플을 수집하여 각 Tree를 학습
+- Aggregating(Voting): 다수의 모델의 결과를 다수결(voting)의 방식으로 결정
+- Bagging 기법은 데이터의 높은 분산으로 인한 Overfitting 문제를 샘플링으로 완화하여 Random Forest가 좀 더 general, robust하게 만듬
+
+### Boosting: 
+
+- Bagging과 동일하게 복원 랜덤 샘플링
+- 각 모델마다 가중치를 부여하여 순차적(Sequential)하게 학습
+- Random Forest가 각 모델을 병렬적(Parallel)하게 학습하는 것과 반대
+- 오답에 대해 높은 가중치를 부여하여 다음 모델이 이를 해결하게 할 수 있도록 함
+	- 맞추지 못한 데이터를 포함하여 다시 표본 추출 (sampling with weight on error)
+- RandomForest보다 좀 더 specific한 모델이 됨
+
+## Feature Importance
+
 ## Hyperparameter Tuning
 ### max depth
 - 나무의 최대 깊이, Node가 늘어나지만 그만큼 과적함의 위험이 증가
@@ -32,3 +54,5 @@
 
 ## Referencese
 - [Random Forest Hyperparameter Tuning in Python | Machine learning](https://www.analyticsvidhya.com/blog/2020/03/beginners-guide-random-forest-hyperparameter-tuning/)
+- https://swalloow.github.io/bagging-boosting/
+- https://velog.io/@guns/머신러닝-스터디-앙상블-Bagging-Random-Forest
