@@ -31,7 +31,21 @@
 - Threshold: 0.1 -> Precision: 0.3, Recall: 1
 - Threshold: 1 -> Precision: 1, Recall: 0.06
 
+## F1 Score
+
+- 2 * Precision * Recall / Precision + Recall
+- Data가 불균형할 때(imbalanced distribution per class) 모델의 전체적인 성능을 고려할 수 있음
+
+## Roc Curve & AUC
+
+- Receiver Operation Characteristic Curve
+- 각 임계값에서 분류 모델의 성능을 보여주는 그래프
+	- X축: False Positive Rate, Y축: True Positive Rate
+- AUC: Area Under the Curve, AUC 값이 1에 가까울수록 모델의 분류 성능이 뛰어남
+	- 0.5일 경우 랜덤이므로 TN와 TP를 구분하는 능력이 없음
+
 
 ## Reference
 - https://sumniya.tistory.com/26
 - https://en.wikipedia.org/wiki/Decision_tree_learning
+- https://bioinformaticsandme.tistory.com/328
