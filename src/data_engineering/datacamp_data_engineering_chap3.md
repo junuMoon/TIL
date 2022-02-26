@@ -1,6 +1,7 @@
-# Data Engineering
+# Data Engineering - Chap 1
 
 ## Introduction to Data Engineering
+
 ### Data Engineer
 - Streamline data acquisition
 - Cloud technology
@@ -17,6 +18,7 @@
 - Scheduling
 	- jobs with intervals
 	- resolve dependency requirement
+		- 라이브러리 dependency가 아니라 query 테이블 depency임
 	- Airflow
 
 ### Cloud Computing
@@ -33,6 +35,7 @@
 		- AWS RDS, Azure SQL Database, Google Cloud SQL
 
 ## Data Engine Toolbox
+
 ### Databases
 - Database: collection of organized data for rapid search and retrieval
 	- Structured: schema 
@@ -124,6 +127,12 @@ print(athlete_events_spark.groupBy('Year').mean('Age'))
 print(athlete_events_spark.groupBy('Year').mean('Age').show())
 
 ```
+
+> MapReduce의 단점을 Spark가 어떻게 극복한다는거?
+하둡이 느린 이유는 disk를 사용하여 병렬처리를 하는 것인데 Spark는 가능한 최대로 메모리를 사용하기에 빠르다.
+
+> Difference between Parallel and distributed computing: Split jobs into subtasks and run on multiple cores(parallel) and a cluster of machines(distributed)
+
 
 ### Workflow scheduling frameworks
 - DAGs: Directed Acyclic Graph
