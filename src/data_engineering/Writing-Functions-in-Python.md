@@ -35,7 +35,7 @@ The type of the return value
 	- Do One Thing: split functions
 	- Advantages: flexible code, easy to test/debug
 
-### Passy by assignment
+### Pass by assignment
 - immutable: int, float, bool, string, bytes, tuple, frozenset, None
 
 > There are only a few immutable data types in Python. Because almost everything is represented as an object. The only way to tell if something is mutable is to see if there is a function or method that will change the object without assigning it to a new variable.
