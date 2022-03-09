@@ -37,5 +37,15 @@
 	- holistic: 전체적인
 
 ### Pandas Optimization
+- `df.iterrows`: each row is `pd.Series`
+- `df.itertuples`: each row is `NamedTuple` of `Collections`
+- `pd.Series` is heavier than `NameTuple`
+- `df.apply`take func to apply with 0 for columns, 1 for rows
+- Pandas built on Numpy which allow vectorization
+	- `baseball_df.apply(lambda row: row['RS']+row['RA'])`: 181 ms
+	- `baseball_df['RS'].values + baseball_df['RA'].values`: **96.5 us**
+	- `baseball_df['RS'] + baseball_df['RA']`: 899 us
+	- `baseball_df.itertuples()`: 23.6 ms
+ 
  
 
