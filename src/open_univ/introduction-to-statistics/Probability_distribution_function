@@ -1,0 +1,21 @@
+# Probability Distribution Function
+
+## Probability
+
+- Sample space: 일어날 수 있는 모든 가능한 결과의 모임
+	- S = {1, 2, 3, 4}
+- Event: 표본 공간의 부분집합
+ 	- S_짝수 = {2, 4}
+- Probability: 동일한 상태에서 동일한 시행을 무한 번 반복한다고 할 때 궁극적으로 전체 시행 중에서 특정 사건이 발생할 비율(고전적 정의)
+	- P(S_짝수) = 1 / 2
+	- 상대도수적 정의: 통계적 실험을 *많이* 반복시행 하였을 때 사건이 발생하는 비율
+- Conditional Probability: 주어진 사건이 일어났다는 가정 하에 다른 한 사건이 일어날 확률
+	- P(B|A)
+
+## Permutation and Combination
+
+- 이산형 표본공간에서 확률 계산을 위해 원소의 수를 세는 방법
+- Permutation: n개 중 r개를 순서를 고려하여 나열하는 방법의 수, nPr
+- Combination: n개 중 r개를 순서를 고려하지 않고 추출하는 방법의 수, nPr / r!
+
+
