@@ -16,4 +16,9 @@
 - 편차(deviation): 관찰값 - 평균
 - 분산(variance): 편차의 제곱의 평균
 - 표준편차(standard deviation): 분산의 제곱근
-- 변이계수(coefficient of variation)
+- 변이계수(coefficient of variation): 변동 계수 또는 상대 표준 편차(relative standard deviation, RSD)는 표준 편차를 표본 평균이나 모 평균 등 산술 평균으로 나눈 것이다. 측정 단위가 다른 자료를 비교할 때 쓴다.
+- 중앙값(median): 중앙에 위치하는 값
+	- 특이점의 영향을 거의 받지 않음
+	- 분포가 한쪽으로 쏠려있는 경우 데이터를 요약하는 데 사용
+- 사분위수(quartiles): 크기 순서대로 늘어놓은 데이터를 4등분하는 값
+- boxplot: 최솟값, 1사분위수, 중앙값, 3사분위수, 최댓값
