@@ -1,4 +1,4 @@
-# Unit testing for Data Science
+ # Unit testing for Data Science
 
 ## Unit test
 
@@ -50,10 +50,173 @@ with pytest.raises(ValueError) as exception_info:  # expected error: ValueError
 ## Test Driven Development
 
 - Unit tests cannot be deprioritized, so that TDD alters the usual function implementing cycle
-- Step1
+- Step
 	1. Write unit tests and fix requirements
 	2. Run tests and watch it fail
 	3. Implement function and run tests again
+
+## Organizing porject
+
+
+### Directory structure
+
+```
+data/
+|-- raw/
+|	|-- raw_data-20210101.csv
+|-- clean/
+|	|-- clean_data-20210101.csv
+src/
+|-- data/
+|	|-- __init__.py
+|	|-- preprocessing_helpers.py
+|-- features/
+|	|-- __init__.py
+|	|-- as_numpy.py
+|-- models/
+|	|-- __init__.py
+|	|-- train.py
+|-- visualization/
+|	|-- __init__.py
+|	|-- plots.py
+tests/
+|-- data/
+|	|-- __init__.py
+|	|-- test_preprocessing_helpers.py
+|-- features/
+|	|-- __init__.py
+|	|-- test_as_numpy.py
+|-- models/
+|	|-- __init__.py
+|	|-- test_train.py
+```
+
+### Test class
+
+- Test class is a container for a single unit's test
+- Create a class for each function to get tested
+
+```python
+from model.filename import function_name
+
+class TestFunctionName:
+	def test_with_normal_argument(self):
+		...
+
+	def test_with_special_argument(self):
+		...
+
+	def test_with_bad_argument(self):
+		...
+```
+
+### Running tests
+
+- using node ID: `pytest <path to test module>::<test class name>::<unit test name>`
+- using keyword: `pytest -k <keyword>`
+	- allows logical operator: and, not ...
+
+### Handling failures
+
+- Tests to be expected to fail use `pytest.mark.xfail`
+	- `@pytest.mark.xfail(reason=train_model() is not implmented)`
+- Tests to be expected to fail in specific conditions use `@pytest.mark.skipif(boolean_expression)`
+	- `@pytest.mark.skipif(sys.version_info > (2, 7), reason='requires Python version lower than or equal to 2.7)`
+- option `-r` show reason for skipping
+
+### Continuous Integration using Travis CI
+
+1. Create a configuration file(`.travis.yml`)
+2. Push the file to github
+3. Install the Travis CI app
+4. Add install and after_success setting to config file
+
+#### Code coverage
+
+code coverage = num lines of application code that ran during testing / total num lines of application code
+
+#### .travis.yml
+
+```yml
+language: python
+python:
+	- "3.6"
+install:
+	- pip install -e .
+	- pip install pytest-cov codecov
+script:
+	- pytest tests
+	- pytest --cov=src tests
+after_success:
+	- codecov
+```
+
+> If you install your project with an -e flag (e.g. pip install -e mynumpy) and use it in your code (e.g. from mynumpy import some_function), when you make any change to some_function, you should be able to use the updated function without reinstalling it.
+
+## Testing Models, Plots and Much More
+
+### Setup & Teardown using Fixture
+
+- Step:
+	1. Setup environment
+	2. Call the function
+	3. Assert statement
+	4. Teardown environment
+- Fixture(`@pytest.fixture`)
+	- A function to be used as test environment
+	- Uses `yield` for teardown step
+	- Remain section runs only when the test has finished executing
+	- `tmpdir`: a built-in pytest fixture that creates a temporary directory during test
+
+#### Test
+
+```python
+
+def test_on_raw_data(raw_and_clean_data_file):
+	raw_path, clean_path = raw_and_clean_data_file
+	preprocess(raw_path, clean_path)
+	with open(clean_path) as f:
+		data = f.readlines()
+	assert data[0] = 'hi'
+```
+
+#### Fixture
+
+```python
+@pytest.fixture
+def raw_and_clean_data_file(tmpdir):
+	raw_path = Path(tmpdir.join('raw.txt'))
+	clean_path = Path(tmpdir.join('clean.text'))
+	with raw_path.open('w') as f:
+		f.write('hello')
+	
+	yield raw_path, clean_path
+
+	# After the test is finished, teardown step runs
+	# Using tmpdir, no teardown code is necessary
+	# raw_path.unlink()
+	# clean_path.unlink()
+```
+
+### Mocking
+
+Mocking is to replace potentially buggy dependencies(functions, libraries etc) during testing to run unit tests independently and bug-free
+
+### Testing Models
+
+- Check the model works as expected in different dataset
+	- Use dataset where reutrn value is known(simple linear data)
+	- Use inequalities(circular data)
+- Model Performance
+	- appropirate metrics for the task of models
+
+---
+[repo](https://github.com/gutfeeling/)
+
+
+
+
+
 
 
 
