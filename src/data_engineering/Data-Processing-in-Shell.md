@@ -3,6 +3,9 @@
 ## Introduction to Shell
 
 - [ls](https://linuxgazette.net/issue48/fischer.html): list files
+	- In its earliest form it was called listf and was available on the Massachusetts Institute of Technology's Compatible Time Sharing System (CTSS)
+	- In 1965, listf was extended to recognize ``*'' as a way to list all files that matched a specific pattern
+	- When Bell Labs dropped out of Multics development in 1969 and work began on Unix, only the abbreviated name of list, ls, was retained.
 - cd: change directory
 - pwd: print working directory
 - cp: copy
