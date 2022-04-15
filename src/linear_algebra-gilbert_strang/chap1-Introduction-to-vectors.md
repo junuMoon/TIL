@@ -35,3 +35,49 @@
 - All sums of diagonal vectors are linear combination of `cv + dw`
 - Parallelogram: 평행사변형
 - Problem 14: Moving the origin of 6:00 adds `j = (0, 1)` to every vector. So the sum of twelve vectors changes from `0 to 12j  = (0, 12)`
+
+
+## Lengths and Dot Products
+
+- The dot product of inner product(내적) of `v = (v1, v2)` and `w = (w1, w2)` is `v • w = v1w1 + v2w2`
+- Dot product is zero means that the vectors are perpendicular, the angle between them is 90 degrees
+- `v • v = length ** 2`
+    - `||v|| = root(v • v)`
+    - Pythagoras formula: `v1 ** 2 + v2 ** 2 = ||v|| ** 2`
+- Unit vector: a vector whose length equals 1
+    - `||u|| = 1`
+    - In xy plane, unit vector is `(cos𝜃, sin𝜃)
+- `u = v / ||v||` is a unit vector in the same direction as v
+    - `v = (1, 1)`: `u = (1/√2, 1/√2)`
+- Right angles produce `v dot w = 0`
+    - The zero vector `v = 0` is perpendicular to every vector `w` because `0 dot w = 0`
+- The angle is less then `1/2 pie` when `v dot w` is positive
+- The angle is more thant `1/2 pie` when `v dot w` is negative
+- Unit vectors `u` and `U` at angle `𝜃` produce `u dot U = cos 𝜃`
+- `v dot w / ||v|| ||w|| = cos 𝜃`
+    - `u = v / ||v||`
+    - `U = w / ||w||`
+- Schewarz inequality: `|v dot w| <= ||v|| ||w||`
+- Traingle inequuality: `||v + w|| <= ||v|| + ||w||`
+
+```python
+v = np.array([1, 2])
+w = np.array([2, 1])
+v @ w # 4
+norm_v = norm_w = (v @ v) ** 0.5 # sqrt(5)
+cos = (w @ v) / (norm_v * norm_w) # 0.7999999999999998
+```
+### Worked examples
+
+- `v = (3, 4) and w = (4, 3)`
+    - Schwarz inequality: `24 <= 25`
+    - Triangle inequality: `7 * sqrt(2) <= 5 + 5`
+    - Cosine of angle between `v` and `w`: `24 / 25`
+- `v = (3, 4)`
+    - Unit vector `u = (3/5, 4/5)`
+    - Perpendicular unit vector `U = (4/5, -3/5) and -(4/5, 3/5)`
+- `r = (2, -1), s = (-1, 2)`, `x dot r = 1 and x dot s = 0`
+    - vector x perpendicular to s: `(2d, d)`
+    - vector x perpendicular to s and dot product has 1 with r: `(2/3, 1/3)`
+
+> Section 1.1 would start with columns `vj`. The goal is to product `x1v1 + ... + xnvn = b`. This section would start from rows `ri`. The goal is to find `x dot ri = bi`. Soon the `v`s will be the columns of a matrix A, and the `r`s will be the rows of A. Then the (one and only) problem will be to solve `Ax = b`.
