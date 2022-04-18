@@ -59,6 +59,7 @@
     - `U = w / ||w||`
 - Schewarz inequality: `|v dot w| <= ||v|| ||w||`
 - Traingle inequuality: `||v + w|| <= ||v|| + ||w||`
+    - (length of `v + w`) <= (length of `v`) + (length of `w`)
 
 ```python
 v = np.array([1, 2])
@@ -81,3 +82,13 @@ cos = (w @ v) / (norm_v * norm_w) # 0.7999999999999998
     - vector x perpendicular to s and dot product has 1 with r: `(2/3, 1/3)`
 
 > Section 1.1 would start with columns `vj`. The goal is to product `x1v1 + ... + xnvn = b`. This section would start from rows `ri`. The goal is to find `x dot ri = bi`. Soon the `v`s will be the columns of a matrix A, and the `r`s will be the rows of A. Then the (one and only) problem will be to solve `Ax = b`.
+
+### Notes
+
+- 산술평균(Arithmetic Mean): `(x1 + ... + xn) / n`
+    - 극단치가 없는 경우에는 대표값으로 사용하기에 적당
+- 기하평균(Geomtric Mean): `(x1 * ... * xn) ** (1/n)`
+    - 구간별 변화율 데이터로부터 전체 구간에 대한 평균 변화율
+- 조화평균(Harmonic Mean): `n / (1/x1 + ... + 1/xn)`
+    - 구간별 평균속력 데이터로부터 전체 구간에 대한 평균 속력
+- Hypotenuse: 빗변
