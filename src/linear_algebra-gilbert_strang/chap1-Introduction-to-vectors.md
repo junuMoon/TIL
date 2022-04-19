@@ -92,3 +92,29 @@ cos = (w @ v) / (norm_v * norm_w) # 0.7999999999999998
 - 조화평균(Harmonic Mean): `n / (1/x1 + ... + 1/xn)`
     - 구간별 평균속력 데이터로부터 전체 구간에 대한 평균 속력
 - Hypotenuse: 빗변
+
+## Matrices
+
+- `Ax=b`
+    - combinations of columns of A
+    - dot products of rows of A and vector x
+- Question:
+    - Old: Compute the linear combination `x1u + x2v + x3w` to find `b`
+    - New: Which combination of `u, v, w` produces a particular vector `b`
+- The key question is whether the third vector is in that plane
+    - Whether vector `w` is a linear combination of `u` and `v`
+- Independent columns: `w` is not in the plane of `u and v`
+    - No combination except `0u+0v+0w = 0` gives `b = 0`
+    - `Ax = 0` has one solution
+    - `A` is invertible matrix
+- Dependent columns: `w` is in the plane of `u and v`
+    - `u + v + w` give `b = 0`
+    - `Cx = 0` has many solutions or none
+    - `A` is not singular matrix
+    - Singular matrix: 특이행렬(역행렬이 존재하지 않음)
+- Triangular matrix: 삼각행렬은 정사각행렬의 특수한 경우로, 주대각선을 기준으로 대각항의 위쪽이나 아래쪽 항들의 값이 모두 0인 경
+
+### Worked examples
+
+- The three columns of A are still independent. They don't lie in a plane. The combinations of those three columns, using the right weights `x1, x2, x3` can product any three-dimensional vector `b = (b1, b2, b3)`. Thos weights come from `x = I(A)b`
+- 
