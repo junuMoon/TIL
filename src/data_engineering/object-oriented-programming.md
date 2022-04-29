@@ -71,8 +71,84 @@ c == p
 
 Why?
 
+
 ### Hash
 
-- 
+### Operator overloading
+
+- `__str__()`: for end user
+- `__repr__()`: for developers
+    - callbacks for `print`
+
+### Exceptions
+
+- Exceptions are classess
+- It's better to include an except block for a child exception before the block for a parent exception, otherwise the child exceptions will be always be caught in the parent block, and the except block for the child will never be executed.
+
+## Class Design
+
+### Inheritance and polymorphism
+
+> Liskov substitution principle: Base class should be substitutable for its subclasses without altering the behavior/properties of the subclasses
+
+- Whenever `BankAccount` works, `CheckingAccount` should work too
+- Syntactically, function signatures should be the same
+    - Same arguments, same return type
+- Semantically, the state of the object should be the same
+    - Subclass method doesn't strengthen input condition
+    - Subclass method doesn't weaken output conditions
+    - No additional exceptions
+
+```python
+class Parent:
+    def talk(self):
+        print("Parent talking!")     
+
+class Child(Parent):
+    def talk(self):
+        print("Child talking!")          
+
+class TalkativeChild(Parent):
+    def talk(self):
+        print("TalkativeChild talking!")
+        Parent.talk(self)  # super().talk()
+
+p, c, tc = Parent(), Child(), TalkativeChild()
+
+for obj in (p, c, tc):
+    obj.talk()
+```
+
+### Private attributes
+
+- Private attribute starts with a single `_`: internal
+- Private attribute starts with two `__`: private
+    - Not inherited
+
+### @property
+
+- User-facing: behave like attributes
+- Developer-facing: give control of access
+- without `@attr.setter`: read-only
+
+```python
+class Employer:
+    
+    def __init__(self, name, salary):
+        self._name = name
+        self._salary = salary
+
+    @property
+    def salary(self):
+        return self._salary
+
+    @salary.setter
+    def salary(self, new_salary):
+        if new_salary < 0:
+            raise ValueError("Can't set salary lower than 0")
+        self._salary = new_salary
+```
+
+### SOLID principles
 
 
