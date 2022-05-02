@@ -162,3 +162,17 @@ file_sensor_task = FileSensor(
 
 init_sales_cleanup >> file_sensor_task >> generate_report
 ```
+
+### Executors
+
+- different executros handle running the tasks differently
+- Can determine executor via `airflow.cfg` file
+- `SequentialExecutor`: Runs one task at a time
+    - While functional, not recommended for production due to the limitations of task resources
+- `LocalExecutor`: Runs on a single system
+    - Treats tasks as processes
+    - *parallelism* defined by the user
+    - Can utilize all resources
+- `CeleryExecutor`: Multiple worker systems can be defined
+    - More complicate so that more powerful
+- 
