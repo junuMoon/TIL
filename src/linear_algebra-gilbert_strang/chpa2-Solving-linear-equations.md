@@ -15,3 +15,25 @@
 ### Worked examples
 
 1. To show that `(0, -1, 0)` is the only solution we have to know that "A is invertible" and "the columns are independent" and "the determinant is not zero"
+
+## The Idea of Elimination
+
+- Elimination produces an upper triangular matrix(U)
+- To elminate x: Subtract a multiple of equation 1 from equation 2
+    - Pivot: first nonzero in the row that does the elmination
+    - Multiplier: (Entry to eliminate) divided by (pivot)
+- Gaussian Elimination: `Ax = b` -> `Ux = c`
+    - It is non-singular if there is a full set of n pivots(never zero!)
+
+## Elimination Using matrices
+
+- `E`: Elimination matrix
+- The purpose of E31 is to produce a zero in the (3, 1) position of the matrix
+- Entry: component for a vector
+    - `aij = A(i, j)`
+- The solution `x` is not changed by elimination. It is the coefficient matrix that is changed
+    - `EAx = Eb`
+- Augemented matrix: `[A b]`
+    - We can include `b` as an extra column and follow it through elimination
+
+> Notice again that word "acts." This is essential. Matrices do something! The matrix `A` acts on `x` to produce `b`. The matrix `E` operates on `A` to give `EA`. The whole process of elimination is a sequence of row operations, alias matrix multiplication.
