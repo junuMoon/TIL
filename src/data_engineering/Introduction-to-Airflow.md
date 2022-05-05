@@ -145,7 +145,10 @@ etl_dag = DAG(
 
 - `mode`
     - `poke`: default, check every time the task is run
-    - `reschedule`: check every time the task is run, but reschedule the task if the condition is not met
+        - 전체 런타임 동안 worker 슬롯을 차지함
+    - `reschedule`: check every time the task is run, 
+    but reschedule the task if the condition is not met
+        - 확인 중일 때만 worker 슬롯을 사용
 - `poke_interval`: how often to check for the condition
 - `timeout`: how long to wait for the condition to be met
 - Also includes normal operator attirbutes
@@ -175,4 +178,129 @@ init_sales_cleanup >> file_sensor_task >> generate_report
     - Can utilize all resources
 - `CeleryExecutor`: Multiple worker systems can be defined
     - More complicate so that more powerful
-- 
+
+### Debugging airflow
+
+#### DAG won't run on schedule
+
+- Check if echeduler is running: `airflow scheduler`
+- At least one `schedule_interval` hasn't passed
+- Not enough tasks free within the executor to run
+    - Change executor type
+    - Add system resources
+    - Add more systems
+    - Change DAG scheduling
+
+#### DAG won't load
+
+- DAG not in web UI or `airflow list_dags`
+- Verify DAG file is in correct folder
+- Determine the DAGs folder via `airflow.cfg`
+    - The folder must be an absolute path
+
+#### Syntax errors
+
+- Check if python script is correct: `airflow list_dags` or `python <dagfile.py>`
+
+#### SLA
+
+- Service Level Agreement
+- SLA miss when the task doesn't meet the expected timing
+
+## Production pipeline
+
+### Template
+
+- Allow subsituing information during a DAG run
+- More flexible than `default_args`
+- Created using `Jinja` templating lang
+
+```python
+# Non-Templated BashOperator
+t1 = BashOperator(
+    task_id='print_date',
+    bash_command='date',
+    dag=dag,
+)
+
+t2 = BashOperator(
+    task_id='sleep',
+    bash_command='sleep 5',
+    retries=3,
+    dag=dag,
+)
+
+# Templated BashOperator
+templated_command = """
+    echo "Reading {{ params.filename }}"
+"""
+
+t1_tp = BashOperator(
+    task_id='templated',
+    bash_command=templated_command,
+    params={'filename': 'salesdata_daily.csv'},
+    dag=dag,
+)
+
+t2_tp = BashOperator(
+    task_id='templated',
+    bash_command=templated_command,
+    params={'filename': 'salesdata_monthly.csv'},
+    dag=dag,
+)
+
+# More complex example
+templated_command = """
+    {% for filename in params.filename %}
+        echo "Reading {{ filename }}"
+    {% endfor %}
+"""
+
+t1_tp_cp = BashOperator(
+    task_id='templated',
+    bash_command=templated_command,
+    params={'filename': ['salesdata_daily.csv', 'salesdata_monthly.csv']},
+    dag=dag,
+)
+```
+
+### Variables
+
+- Airflow built-in runtime variables
+    - Execution Date: `{{ ds }}`
+    - Execution Date, no dash: `{{ ds_nodash }}`
+    - Previous Execution Date: `{{ prev_ds }}`
+    - Previous Execution Date, no dash: `{{ prev_ds_nodash }}`
+    - DAG object: `{{ dag }}`
+    - Airflow config object: `{{ conf }}`
+- Macros: package which provides various useful objects/methods for Airflow templates
+    - {{ macros.datetime }}: The `datetime.datetime` object
+    - {{ macros.timedelta }}: The `datetime.timedelta` object
+    - {{ macros.uuid }}: The `uuid.uuid4` object
+    - {{ macros.ds_add('2020-04-15', 5) }}: Add 5 days to `2020-04-15`
+
+### Branching
+
+- Provides conditional logic
+- Takes a `python_callable` to return the next task id(or list of ids) to follow
+
+```python
+def branch_test(**kwargs):
+    if int(kwargs['ds_nodash']) % 2 == 0:
+        return ['even_day_task']
+    else:
+        return ['odd_day_task']
+
+branch_task = BranchPythonOperator(
+                    task_id='branch_task',
+                    provide_context=True,
+                    python_callable=branch_test
+                    dag=dag
+                )
+start_task >> branch_task >> even_day_task
+branch_task >> odd_day_task
+
+# DAG graph
+# start task -> branch_task -> even_day_task
+#                           -> odd_day_task
+```
