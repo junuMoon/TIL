@@ -18,18 +18,27 @@
 - logit = log(odds) = log(p) - log(1-p) = log(p / 1-p)
     - range: [-inf, inf]
 - logistic function(sigmoid): `1 / (1 + e^-𝜃)`
-    - 𝜃 = `w^Tx + b`
+    - 𝜃 = `w.T@x + b`
     - range: [0, 1]
 
-## Maximum Likelihood
+```python
+prob = 0.8
+odds = prob / (1-prob)  # 4.0
+log_odds = np.log(odds)  # 1.38
+prob = 1 / (1 + np.exp(-log_odds))  # 0.8
+```
+
+## Maximum Likelihood Estimation
 
 - How to fit logistic regression model to data
 - Logit range from -inf to inf so that we can't use least-squares to find best fitting line
 - Values of logistic function range from 0 to 1 so we can use least-squares to find best fitting line
 - Instead, we use maximum likelihood to find best fitting line
-    - maximize likelihood = `(0.9 + 0.8 + ... + (1-0.2) + (1-0.1))`
-    - maximize log-likelihood = `log(0.9) + log(0.8) + ... + log(1-0.2) + log(1-0.1)`
-    - equals to minimize negative log-likelihood
+    - Likelihood function: `P(x|𝜃)` = `P(x1, x2, x3, ..., xn | 𝜃)`
+         - `(0.9 * 0.8 * ... * (1-0.2) * (1-0.1))`
+    - Log-likelihood function: `L(𝜃|x)` = `Sum 1 to n log(P(xi|𝜃))`
+        - `log(0.9) + log(0.8) + ... + log(1-0.2) + log(1-0.1)`
+- To maximizie likelihood equals to minimize negative log-likelihood
 
 > 데이터가 임의의 파라메터 θ에 의존하는 확률분포를 따름. `P(v1, ..., vn | θ)`를 구하고 싶은데 θ를 모름. 따라서 베이즈 규칙을 활용하여 θ가 발생할 우도(likelihood)로 바꿈. `L(θ|v1, ..., vn)`를 최대화하는 θ를 찾는다. 관측된 데이터가 발생할 경우를 가장 높게 만들어주는 값
 
