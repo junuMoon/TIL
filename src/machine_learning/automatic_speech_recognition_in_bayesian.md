@@ -1,4 +1,5 @@
 # Automatic Speech Recognition in Bayesian
+
 `Y-hat = argmaxP(X|Y)P(Y)`
 
 - 음향모델: P(X|Y)
@@ -9,6 +10,7 @@
 	- 시퀀스 Y가 얼마나 그럴듯한지(likely)
 
 ## Bayesian Learning
+
 `P(h|D) = P(D|h)P(h) / P(D)`
 
 - 패턴(데이터: 음성)를 보고 패턴의 원인(가설: 음소/단어)을 역추정
